@@ -2,6 +2,8 @@ package edu.sjsu.cmpe.library.repository;
 
 import java.util.List;
 
+import com.yammer.dropwizard.jersey.params.LongParam;
+
 import edu.sjsu.cmpe.library.domain.Book;
 
 /**
@@ -44,4 +46,10 @@ public interface BookRepositoryInterface {
      *            an ISBN of the book to be deleted
      */
     void delete(Long isbn);
+    
+    void update(Long isbn,Book book);
+    
+    boolean find(String Title,Book book);
+
+	
 }

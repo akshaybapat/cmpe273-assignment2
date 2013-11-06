@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.yammer.dropwizard.jersey.params.LongParam;
+
 import edu.sjsu.cmpe.library.domain.Book;
 
 public class BookRepository implements BookRepositoryInterface {
@@ -68,12 +70,12 @@ public class BookRepository implements BookRepositoryInterface {
     public Book saveBook(Book newBook) {
 	checkNotNull(newBook, "newBook instance must not be null");
 	// Generate new ISBN
-	Long isbn = generateISBNKey();
-	newBook.setIsbn(isbn);
+	//Long isbn = generateISBNKey();
+	//newBook.setIsbn(isbn);
 	// TODO: create and associate other fields such as author
 
 	// Finally, save the new book into the map
-	bookInMemoryMap.putIfAbsent(isbn, newBook);
+	bookInMemoryMap.putIfAbsent(newBook.getIsbn(), newBook);
 
 	return newBook;
     }
@@ -105,5 +107,19 @@ public class BookRepository implements BookRepositoryInterface {
     public void delete(Long isbn) {
 	bookInMemoryMap.remove(isbn);
     }
+
+	@Override
+	public void update(Long isbn, Book book) {
+		bookInMemoryMap.put(isbn, book);
+		
+	}
+
+	@Override
+	public boolean find(String Title, Book book) {
+		boolean flag = false;
+		for(int i=0;i<bookInMemoryMap.size();i++)
+			if (bookInMemoryMap.get(i).getTitle().equalsIgnoreCase(Title)) flag = true;
+		    return flag;
+	}
 
 }
