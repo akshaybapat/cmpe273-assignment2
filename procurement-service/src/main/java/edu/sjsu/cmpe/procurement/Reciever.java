@@ -3,7 +3,7 @@ package edu.sjsu.cmpe.procurement;
 import de.spinscale.dropwizard.jobs.Job;
 import de.spinscale.dropwizard.jobs.annotations.Every;
 
-@Every("50s")
+@Every("300s")
 public class Reciever extends Job
 {
 
